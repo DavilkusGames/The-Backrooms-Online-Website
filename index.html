@@ -81,6 +81,10 @@
                 display: none;
             }
 
+        html {
+            overflow-x: hidden;
+        }
+
         body {
             font-family: 'Noto Sans', sans-serif;
             background-color: #000000;
@@ -436,6 +440,13 @@
             .big-text {
                 padding: 4rem 1rem;
             }
+
+            .socials-grid {
+                gap: 0.75rem;
+            }
+            .social-btn {
+                padding: 0.75rem 1rem;
+            }
         }
     </style>
 </head>
@@ -576,6 +587,17 @@
 
         // Stop observing once animated in
         observer.unobserve(entry.target);
+
+        // Remove delay and transition utilities after animation completes to fix hover effects
+        setTimeout(() => {
+        const classesToRemove = Array.from(entry.target.classList).filter(c => c.startsWith('delay-'));
+        if (entry.target.classList.contains('social-btn')) {
+        classesToRemove.push('transition-all', 'duration-700', 'ease-out');
+        }
+        if (classesToRemove.length > 0) {
+        entry.target.classList.remove(...classesToRemove);
+        }
+        }, 2500);
         }
         });
         }, observerOptions);
