@@ -460,7 +460,7 @@
     </div>
 
     <section class="hero">
-        <h1 class="scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[300ms] hover:scale-105 hover:drop-shadow-[0_0_20px_rgba(0,0,0,0.8)] cursor-default">
+        <h1 class="scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[300ms] hover:scale-105 hover:drop-shadow-[0_0_20px_rgba(64,48,11,0.4)] cursor-default">
             The&nbsp;Backrooms<br>Online
         </h1>
         <p class="scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[500ms] hover:scale-105 hover:text-black cursor-default">
@@ -561,6 +561,9 @@
         // Lerp (Linear Interpolation) to smooth the effect out
         currentScale += (targetScale - currentScale) * 0.1;
         currentY += (targetY - currentY) * 0.1;
+
+        // Cap currentY so that the downward translation never exceeds the scroll distance
+        currentY = Math.min(currentY, scrollY);
 
         // Apply to CSS variables so the pseudo-element can consume them
         heroSection.style.setProperty('--bg-scale', currentScale.toFixed(4));
