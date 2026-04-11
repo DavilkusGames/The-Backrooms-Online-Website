@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- SEO -->
     <title>The Backrooms: Online | Co-op Multiplayer Horror</title>
-    <meta name="description" content="Escape the Backrooms with friends! A liminal multiplayer survival horror game developed by Davilkus Games LLC.">
-    <meta name="author" content="Davilkus Games LLC">
+    <meta name="description" content="Escape the Backrooms with friends! A liminal multiplayer survival horror game developed by Davilkus Games.">
+    <meta name="author" content="Davilkus Games">
     <meta name="robots" content="index, follow, max-image-preview:large">
-    
+
     <!-- Color Scheme -->
     <meta name="color-scheme" content="dark">
     <meta name="theme-color" content="#b68817">
@@ -39,7 +39,7 @@
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@DavilkusGames"> 
+    <meta name="twitter:site" content="@DavilkusGames">
     <meta name="twitter:title" content="The Backrooms: Online">
     <meta name="twitter:description" content="Escape the Backrooms with friends! A liminal multiplayer survival horror game.">
     <meta name="twitter:image" content="https://the-backrooms.online/assets/images/social-banner.webp">
@@ -49,29 +49,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&family=JetBrains+Mono:wght@500&family=Noto+Sans:wght@500&display=swap" rel="stylesheet">
 
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "VideoGame",
-            "name": "The Backrooms: Online",
-            "url": "https://the-backrooms.online",
-            "image": "https://the-backrooms.online/assets/images/social-banner.webp",
-            "description": "Multiplayer survival horror game based on the Backrooms fandom.",
-            "genre": ["Horror", "Survival", "Co-op", "Multiplayer"],
-            "publisher": {
-                "@type": "Organization",
-                "name": "Davilkus Games LLC",
-                "url": "https://davilkusgames.com"
-            },
-            "author": {
-                "@type": "Organization",
-                "name": "Davilkus Games LLC"
-            },
-            "gamePlatform": ["PC"],
-            "applicationCategory": "Game"
-        }
-    </script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
         @font-face {
@@ -79,7 +58,7 @@
             src: url('./assets/fonts/Coolvetica.otf') format('opentype');
             font-weight: 400;
             font-style: normal;
-            font-display: swap;
+            font-display: block;
         }
 
         @font-face {
@@ -87,22 +66,20 @@
             src: url('./assets/fonts/SansRemix.ttf') format('truetype');
             font-weight: 700;
             font-style: normal;
-            font-display: swap;
+            font-display: block;
         }
-
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
 
-        *::-webkit-scrollbar {
-            display: none;
-        }
+            *::-webkit-scrollbar {
+                display: none;
+            }
 
         body {
             font-family: 'Noto Sans', sans-serif;
@@ -110,18 +87,75 @@
             color: #ffffff;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
 
+            /* Loading Screen */
+            body.loading {
+                overflow: hidden;
+            }
+
+        #loader {
+            position: fixed;
+            inset: 0;
+            background-color: #000000;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #b68817;
+            font-family: 'JetBrains Mono', monospace;
+            transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+        }
+
+        body.loaded #loader {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(182, 136, 23, 0.2);
+            border-radius: 50%;
+            border-top-color: #b68817;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader-text {
+            font-size: 1rem;
+            letter-spacing: 2px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
         .hero {
+            /* Added CSS variables for performant JS scaling & parallax */
+            --bg-scale: 1;
+            --bg-y: 0px;
             min-height: 100vh;
             min-height: 100dvh;
             position: relative;
-
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -130,46 +164,49 @@
             padding: 2rem;
             background: radial-gradient(circle at 30% 0%, #e7cc8f 0%, #d4a940 30%, #a47c1a 60%, #745910 100%);
             color: rgba(0, 0, 0, 0.85);
+            overflow: hidden;
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background-image: url('./assets/images/level0_pre-alpha.webp');
-            background-size: cover;
-            background-position: center;
-            -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4) 25%, rgba(0, 0, 0, 0) 100%);
-            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4) 25%, rgba(0, 0, 0, 0) 100%);
-            z-index: 0;
-        }
+            .hero::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background-image: url('./assets/images/level0_pre-alpha.webp');
+                background-size: cover;
+                background-position: center;
+                -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4) 25%, rgba(0, 0, 0, 0) 100%);
+                mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4) 25%, rgba(0, 0, 0, 0) 100%);
+                z-index: 0;
+                /* Apply dynamic transforms passed from Javascript */
+                transform: scale(var(--bg-scale)) translateY(var(--bg-y));
+                will-change: transform;
+            }
 
-        .hero h1 {
-            font-family: 'Coolvetica', sans-serif;
-            font-size: clamp(3.5rem, 8vw, 8rem);
-            font-weight: 400;
-            line-height: 1;
-            letter-spacing: 0;
-            margin-bottom: 2rem;
-            max-width: 1200px;
-            position: relative;
-            z-index: 1;
+            .hero h1 {
+                font-family: 'Coolvetica', sans-serif;
+                font-size: clamp(3.5rem, 8vw, 8rem);
+                font-weight: 400;
+                line-height: 1;
+                letter-spacing: 0;
+                margin-bottom: 2rem;
+                max-width: 1200px;
+                position: relative;
+                z-index: 1;
+                background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.75) 20%, rgba(0, 0, 0, 0.9) 70%, rgba(0, 0, 0, 0.75) 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
 
-            background: linear-gradient(to bottom right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.75) 20%, rgba(0, 0, 0, 0.9) 70%, rgba(0, 0, 0, 0.75) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: clamp(1.2rem, 2vw, 2rem);
-            font-weight: 500;
-            line-height: 1.2;
-            color: rgba(0, 0, 0, 0.75);
-            max-width: 800px;
-            position: relative;
-            z-index: 1;
-        }
+            .hero p {
+                font-size: clamp(1.2rem, 2vw, 2rem);
+                font-weight: 500;
+                line-height: 1.2;
+                color: rgba(0, 0, 0, 0.75);
+                max-width: 800px;
+                position: relative;
+                z-index: 1;
+            }
 
         .about {
             position: relative;
@@ -187,18 +224,18 @@
             left: 0;
             bottom: 0;
             width: 55%;
-            background-image: url('./assets/images/level5_pre-alpha.webp');
-            background-size: cover;
-            background-position: 55%;
             clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
             z-index: 1;
+            background-color: #000;
         }
 
-        .about-image::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-        }
+            .about-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: 55% center;
+                pointer-events: none;
+            }
 
         .image-label {
             position: absolute;
@@ -221,37 +258,33 @@
             gap: 2.5rem;
         }
 
-        .about-text p {
-            color: rgba(255, 255, 255, 0.75);
-            font-size: clamp(1rem, 1.5vw, 2rem);
-            line-height: 1.3;
-            font-weight: 500;
-        }
+            .about-text p {
+                color: rgba(255, 255, 255, 0.75);
+                font-size: clamp(1rem, 1.5vw, 2rem);
+                line-height: 1.3;
+                font-weight: 500;
+            }
 
         .big-text {
             background-color: #000000;
             padding: 8rem 5%;
             text-align: right;
-
             overflow: hidden;
         }
 
-        .big-text h2 {
-            font-family: 'Sans Remix', sans-serif;
-            font-weight: 700;
-            font-size: clamp(2rem, 10.5vw, 15rem);
-
-            line-height: 0.85;
-            text-transform: uppercase;
-
-            display: inline-block;
-            white-space: nowrap;
-
-            background: linear-gradient(135deg, #ffffff 0%, #585858 40%, #ffffff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+            .big-text h2 {
+                font-family: 'Sans Remix', sans-serif;
+                font-weight: 700;
+                font-size: clamp(2rem, 10.5vw, 15rem);
+                line-height: 0.85;
+                text-transform: uppercase;
+                display: inline-block;
+                white-space: nowrap;
+                background: linear-gradient(135deg, #ffffff 0%, #585858 40%, #ffffff 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
 
         .features {
             position: relative;
@@ -269,18 +302,18 @@
             right: 0;
             bottom: 0;
             width: 55%;
-            background-image: url('./assets/images/level37_pre-alpha.webp');
-            background-size: cover;
-            background-position: center;
             clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
             z-index: 1;
+            background-color: #000;
         }
 
-        .features-image::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-        }
+            .features-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                pointer-events: none;
+            }
 
         .features .image-label {
             right: 30px;
@@ -296,18 +329,52 @@
             gap: 2.5rem;
         }
 
-        .features-text p {
-            color: rgba(255, 255, 255, 0.75);
-            font-size: clamp(1rem, 1.5vw, 2rem);
-            line-height: 1.3;
-            font-weight: 500;
+            .features-text p {
+                color: rgba(255, 255, 255, 0.75);
+                font-size: clamp(1rem, 1.5vw, 2rem);
+                line-height: 1.3;
+                font-weight: 500;
+            }
+
+        .socials {
+            background-color: #000000;
+            padding: 6rem 2rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+            position: relative;
         }
 
-        @media (max-width: 768px) {
-            .big-text {
-                padding: 5rem 1rem;
-            }
+        .socials-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            max-width: 1000px;
         }
+
+        .social-btn {
+            font-family: 'JetBrains Mono', monospace;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            font-size: clamp(0.8rem, 1vw, 1rem);
+            letter-spacing: 1px;
+            background: rgba(0, 0, 0, 0.5);
+            text-transform: uppercase;
+        }
+
+            .social-btn:hover {
+                color: #ffffff;
+                border-color: #b68817;
+                background: rgba(182, 136, 23, 0.1);
+                box-shadow: 0 0 15px rgba(182, 136, 23, 0.2);
+                transform: translateY(-2px);
+            }
 
         .footer {
             background-color: #000000;
@@ -320,27 +387,27 @@
             white-space: nowrap;
         }
 
-        .footer span {
-            font-family: 'Annie Use Your Telescope', cursive;
-            font-size: clamp(4rem, 8vw, 10rem);
-            font-weight: 400;
-            line-height: 0.9;
-        }
+            .footer span {
+                font-family: 'Annie Use Your Telescope', cursive;
+                font-size: clamp(4rem, 8vw, 10rem);
+                font-weight: 400;
+                line-height: 0.9;
+            }
 
-        .footer .highlight {
-            background: linear-gradient(135deg, #ff0000 0%, #b10000 40%, #ff5252 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+            .footer .highlight {
+                background: linear-gradient(135deg, #ff0000 0%, #b10000 40%, #ff5252 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
 
-        .footer .faded {
-            background: linear-gradient(135deg, #ff0000 0%, #b10000 40%, #ff5252 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            opacity: 0.25;
-        }
+            .footer .faded {
+                background: linear-gradient(135deg, #ff0000 0%, #b10000 40%, #ff5252 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                opacity: 0.25;
+            }
 
         @media (max-width: 992px) {
             .about, .features {
@@ -367,53 +434,158 @@
             }
 
             .big-text {
-                padding: 4rem 2rem;
+                padding: 4rem 1rem;
             }
         }
     </style>
 </head>
 
-<body>
+<body class="loading">
+
+    <!-- Loading Screen (Hides text until fonts load) -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <span class="loader-text">NOCLIPPING OUR OF REALITY...</span>
+    </div>
 
     <section class="hero">
-        <h1>The&nbsp;Backrooms<br>Online</h1>
-        <p>Escape the Backrooms with friends!<br>The ultimate co-op multiplayer horror.</p>
+        <h1 class="scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[300ms] hover:scale-105 hover:drop-shadow-[0_0_20px_rgba(0,0,0,0.8)] cursor-default">
+            The&nbsp;Backrooms<br>Online
+        </h1>
+        <p class="scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[500ms] hover:scale-105 hover:text-black cursor-default">
+            Escape the Backrooms with friends!<br>The ultimate co-op multiplayer horror.
+        </p>
     </section>
 
     <section class="about">
-        <div class="about-image">
-            <span class="image-label">Pre-Alpha Level 5 Design</span>
+        <!-- Added Tailwind "group" to image container to trigger hover scale on inner image -->
+        <div class="about-image group scroll-anim opacity-0 -translate-x-12 transition-all duration-[1200ms] ease-out">
+            <img src="./assets/images/level5_pre-alpha.webp" alt="Pre-Alpha Level 5 Design" loading="lazy" class="transition-transform duration-[2s] ease-out group-hover:scale-[1.15]">
+            <span class="image-label group-hover:text-[#b68817] transition-colors duration-500">Pre-Alpha Level 5 Design</span>
         </div>
 
         <div class="about-text">
-            <p>Multiplayer survival horror game developed by Davilkus Games LLC, based on the Backrooms fandom.</p>
-            <p>The game is an immersive exploration of multiple Backrooms levels with friends or via matchmaking. The
+            <p class="scroll-anim opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-[100ms] hover:text-white">
+                Multiplayer survival horror game developed by a small, but passionate team called Davilkus Games, based on the Backrooms fandom.
+            </p>
+            <p class="scroll-anim opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-[300ms] hover:text-white">
+                The game is an immersive exploration of multiple Backrooms levels with friends or via matchmaking. The
                 project aims to create a deeply atmospheric and mechanically rich experience, bringing the unsettling
-                lore of this specific Backrooms level to life.</p>
+                lore of this specific Backrooms level to life.
+            </p>
         </div>
     </section>
 
     <section class="big-text">
-        <h2>MULTIPLAYER<br>LIMINAL<br>HORROR</h2>
+        <h2 class="scroll-anim opacity-0 scale-90 transition-all duration-[1500ms] ease-out hover:scale-105 hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-default">
+            MULTIPLAYER<br>LIMINAL<br>HORROR
+        </h2>
     </section>
 
     <section class="features">
-        <div class="features-image">
-            <span class="image-label">Pre-Alpha Level 37 Design</span>
+        <div class="features-image group scroll-anim opacity-0 translate-x-12 transition-all duration-[1200ms] ease-out">
+            <img src="./assets/images/level37_pre-alpha.webp" alt="Pre-Alpha Level 37 Design" loading="lazy" class="transition-transform duration-[2s] ease-out group-hover:scale-[1.15]">
+            <span class="image-label group-hover:text-[#b68817] transition-colors duration-500">Pre-Alpha Level 37 Design</span>
         </div>
 
         <div class="features-text">
-            <p>Experience a multitude of levels and diverse gameplay mechanics.</p>
-            <p>Choose from different game modes, host your own custom player servers, and enjoy full mod support for endless community content.</p>
+            <p class="scroll-anim opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-[100ms] hover:text-white">
+                Experience a multitude of levels and diverse gameplay mechanics.
+            </p>
+            <p class="scroll-anim opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-[300ms] hover:text-white">
+                Choose from different game modes, host your own custom player servers, and enjoy full mod support for endless community content.
+            </p>
+        </div>
+    </section>
+
+    <!-- Socials & Links Section (With staggered entrance animations) -->
+    <section class="socials">
+        <div class="socials-grid">
+            <a href="https://davilkusgames.com" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[100ms]" target="_blank" rel="noopener noreferrer">Official Website</a>
+            <a href="https://discord.gg/w3zRrUgxMw" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[200ms]" target="_blank" rel="noopener noreferrer">Discord Server</a>
+            <a href="https://t.me/backrooms_online" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[300ms]" target="_blank" rel="noopener noreferrer">Game Telegram</a>
+            <a href="https://www.youtube.com/@davilkusgames" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[400ms]" target="_blank" rel="noopener noreferrer">YouTube</a>
+            <a href="https://x.com/DavilkusGames" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[500ms]" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+            <a href="https://bsky.app/profile/davilkusgames.com" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[600ms]" target="_blank" rel="noopener noreferrer">Bluesky</a>
+            <a href="https://t.me/DavilkusGames" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[700ms]" target="_blank" rel="noopener noreferrer">Dev Telegram</a>
         </div>
     </section>
 
     <section class="footer">
-        <span class="faded">Coming Soon</span>
-        <span class="highlight">Coming Soon</span>
-        <span class="faded">Coming Soon</span>
+        <span class="faded scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out hover:scale-110 hover:text-[#ff5252] cursor-default">Coming Soon</span>
+        <span class="highlight scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[200ms] hover:scale-110 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)] cursor-default">Coming Soon</span>
+        <span class="faded scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[400ms] hover:scale-110 hover:text-[#ff5252] cursor-default">Coming Soon</span>
     </section>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        // 1. Loader & Animation Trigger
+        document.fonts.ready.then(() => {
+        setTimeout(() => {
+        document.body.classList.remove('loading');
+        document.body.classList.add('loaded');
+
+        // Init Scroll Animations after loader drops so the top elements animate properly!
+        initScrollAnimations();
+        }, 600);
+        });
+
+        // 2. Smooth Background Parallax & Scaling on Scroll (Using requestAnimationFrame for silky performance)
+        let scrollY = 0;
+        let currentScale = 1;
+        let currentY = 0;
+        const heroSection = document.querySelector('.hero');
+
+        window.addEventListener('scroll', () => {
+        scrollY = window.scrollY;
+        });
+
+        function animateHero() {
+        // Only compute if we are near the top hero section
+        if (scrollY < window.innerHeight * 1.5) {
+        // Target values based on scroll depth
+        const targetScale = 1 + (scrollY * 0.0003);
+        const targetY = scrollY * 0.15; // Parallax speed
+
+        // Lerp (Linear Interpolation) to smooth the effect out
+        currentScale += (targetScale - currentScale) * 0.1;
+        currentY += (targetY - currentY) * 0.1;
+
+        // Apply to CSS variables so the pseudo-element can consume them
+        heroSection.style.setProperty('--bg-scale', currentScale.toFixed(4));
+        heroSection.style.setProperty('--bg-y', `${currentY.toFixed(2)}px`);
+        }
+        requestAnimationFrame(animateHero);
+        }
+        animateHero();
+
+        // 3. Scroll Into View Animations (Intersection Observer removing Tailwind hidden classes)
+        function initScrollAnimations() {
+        const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15 // Triggers when 15% of the element is visible
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+        if (entry.isIntersecting) {
+        // Strips away the hiding utilities injected in the HTML classes
+        entry.target.classList.remove('opacity-0', 'translate-y-12', 'translate-y-8', 'translate-y-6', '-translate-x-12', 'translate-x-12', 'scale-90');
+        entry.target.classList.add('opacity-100', 'translate-y-0', 'translate-x-0', 'scale-100');
+
+        // Stop observing once animated in
+        observer.unobserve(entry.target);
+        }
+        });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-anim').forEach(el => {
+        observer.observe(el);
+        });
+        }
+        });
+    </script>
 </body>
 
 </html>
