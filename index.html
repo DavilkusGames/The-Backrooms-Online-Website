@@ -338,13 +338,6 @@
                 font-weight: 500;
             }
 
-
-        .auto-scale-wrapper.align-right {
-            display: grid;
-            justify-items: right;
-            width: 100%;
-        }
-
         .auto-scale-wrapper.align-center {
             display: flex;
             justify-content: center;
@@ -659,7 +652,7 @@
         </section>
 
         <section class="big-text">
-            <div class="auto-scale-wrapper align-right">
+            <div class="auto-scale-wrapper align-right js-needs-scaling">
                 <div class="auto-scale-scaler" style="transform-origin: right center;">
                     <h2 data-i18n="big_text" class="scroll-anim opacity-0 scale-90 transition-all duration-[1500ms] ease-out hover:scale-105 hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-default">
                         MULTIPLAYER<br>LIMINAL<br>HORROR
@@ -893,7 +886,7 @@
 
         // --- Auto-Scaling Engine for Extra-Long Localized Text ---
         function applyAutoScale() {
-            const wrappers = document.querySelectorAll('.auto-scale-wrapper');
+            const wrappers = document.querySelectorAll('.js-needs-scaling');
             wrappers.forEach(wrapper => {
                 const scaler = wrapper.querySelector('.auto-scale-scaler');
                 if (!scaler) return;
