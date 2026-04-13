@@ -327,9 +327,10 @@
                 font-weight: 500;
             }
 
-        .auto-scale-wrapper {
-            display: flex;
-            width: 100%;
+        .auto-scale-scaler {
+            display: inline-block;
+            max-width: max-content;
+            text-align: center;
         }
 
             .auto-scale-wrapper.align-right {
@@ -498,11 +499,11 @@
 
         .footer {
             background-color: #000000;
-            padding: 3rem 2rem;
+            padding: 2.5rem 2rem 1.5rem 2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1.25rem;
             position: relative;
             border-top: 1px solid rgba(255,255,255,0.05);
         }
@@ -684,8 +685,8 @@
         </section>
 
         <section class="coming-soon">
-            <div class="auto-scale-wrapper align-center flex-col gap-6">
-                <div class="auto-scale-scaler coming-soon-text-wrapper" style="transform-origin: center center;">
+            <div class="auto-scale-wrapper align-center flex-col items-center w-full gap-6">
+                <div class="auto-scale-scaler coming-soon-text-wrapper justify-center" style="transform-origin: center center;">
                     <span class="faded text-item scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out hover:scale-110 hover:text-[#ff5252] cursor-default" aria-hidden="true">
                         <span data-i18n="footer_coming_soon">Coming Soon</span>
                     </span>
@@ -770,7 +771,7 @@
         <div class="footer-copyright">
             &copy; <span id="current-year"></span> <a href="https://davilkusgames.com" target="_blank" rel="noopener noreferrer">Davilkus Games</a>, All Rights Reserved.
         </div>
-        <img src="./assets/studio-logo.webp" alt="Davilkus Games" class="w-12 h-auto opacity-40 hover:opacity-80 transition-opacity duration-300 pointer-events-none">
+        <img src="./assets/studio-logo.webp" alt="Davilkus Games" class="w-10 h-auto opacity-40 hover:opacity-80 transition-opacity duration-300 pointer-events-none">
     </footer>
 
     <!-- i18n & Core Logic -->
