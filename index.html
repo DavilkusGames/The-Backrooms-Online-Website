@@ -26,8 +26,7 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://backroomsonline.com/">
 
-    <!-- Language SEO Routing (Tells Google about your translations) -->
-    <!-- Expanded Language SEO -->
+    <!-- Language SEO Routing -->
     <link rel="alternate" hreflang="x-default" href="https://backroomsonline.com/">
     <link rel="alternate" hreflang="en" href="https://backroomsonline.com/?lang=en">
     <link rel="alternate" hreflang="ru" href="https://backroomsonline.com/?lang=ru">
@@ -146,9 +145,9 @@
             overflow-x: hidden;
         }
 
-        /* System font fallbacks */
+        /* Multi-language system font fallback stack */
         body {
-            font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Noto Kufi Arabic", "Microsoft YaHei", "Hiragino Sans", "Meiryo", "Sarabun", "Loma", "Mangal", sans-serif;
+            font-family: 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Kufi Arabic", "Microsoft YaHei", "Hiragino Sans", "Meiryo", "Sarabun", "Loma", "Mangal", sans-serif;
             background-color: #000000;
             color: #ffffff;
             overflow-x: hidden;
@@ -173,7 +172,7 @@
             justify-content: center;
             align-items: center;
             color: #b68817;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'JetBrains Mono', 'Noto Sans', monospace;
             transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
         }
 
@@ -307,7 +306,7 @@
             z-index: 2;
             color: rgba(255, 255, 255, 1);
             text-shadow: 2px 2px 8px #000000aa;
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'JetBrains Mono', 'Noto Sans', monospace;
             font-size: clamp(0.8rem, 1vw, 1.5rem);
             font-weight: 500;
         }
@@ -327,6 +326,25 @@
                 line-height: 1.3;
                 font-weight: 500;
             }
+
+        .auto-scale-wrapper {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+        }
+
+            .auto-scale-wrapper.align-right {
+                justify-content: flex-end;
+            }
+
+            .auto-scale-wrapper.align-center {
+                justify-content: center;
+            }
+
+        .auto-scale-scaler {
+            display: inline-block;
+            max-width: max-content;
+        }
 
         .big-text {
             background-color: #000000;
@@ -418,7 +436,7 @@
         }
 
         .social-btn {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'JetBrains Mono', 'Noto Sans', monospace;
             color: rgba(255, 255, 255, 0.6);
             text-decoration: none;
             padding: 0.8rem 1.5rem;
@@ -439,41 +457,40 @@
                 transform: translateY(-2px);
             }
 
-        .footer {
+        .coming-soon {
             background-color: #000000;
-            padding: 5rem 0;
+            padding: 4rem 2rem 6rem 2rem;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4rem;
             position: relative;
+            z-index: 2;
+            overflow: hidden;
         }
 
-        .footer-text-wrapper {
+        .coming-soon-text-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: clamp(1rem, 4vw, 4rem);
-            overflow: hidden;
             white-space: nowrap;
-            width: 100%;
         }
 
-        .footer span {
-            font-family: 'Annie Use Your Telescope', cursive;
+        .coming-soon span.text-item {
+            font-family: 'Annie Use Your Telescope', 'Noto Sans', cursive;
             font-size: clamp(4rem, 8vw, 10rem);
             font-weight: 400;
             line-height: 0.9;
         }
 
-        .footer .highlight {
+        .coming-soon .highlight {
             background: linear-gradient(135deg, #ff0000 0%, #b10000 40%, #ff5252 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .footer .faded {
+        .coming-soon .faded {
             background: linear-gradient(135deg, #ff0000 0%, #b10000 40%, #ff5252 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -481,12 +498,41 @@
             opacity: 0.25;
         }
 
+        .footer {
+            background-color: #000000;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            position: relative;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-copyright {
+            font-family: 'JetBrains Mono', 'Noto Sans', monospace;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+            .footer-copyright a {
+                color: rgba(255, 255, 255, 0.6);
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+
+                .footer-copyright a:hover {
+                    color: #b68817;
+                }
+
         /* Language Switcher */
         .lang-switcher select {
             appearance: none;
             background-color: transparent;
             color: rgba(255, 255, 255, 0.5);
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'JetBrains Mono', 'Noto Sans', monospace;
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-radius: 4px;
             padding: 0.5rem 2.2rem 0.5rem 1rem;
@@ -592,9 +638,13 @@
         </section>
 
         <section class="big-text">
-            <h2 data-i18n="big_text" class="scroll-anim opacity-0 scale-90 transition-all duration-[1500ms] ease-out hover:scale-105 hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-default">
-                MULTIPLAYER<br>LIMINAL<br>HORROR
-            </h2>
+            <div class="auto-scale-wrapper align-right">
+                <div class="auto-scale-scaler" style="transform-origin: right center;">
+                    <h2 data-i18n="big_text" class="scroll-anim opacity-0 scale-90 transition-all duration-[1500ms] ease-out hover:scale-105 hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-default">
+                        MULTIPLAYER<br>LIMINAL<br>HORROR
+                    </h2>
+                </div>
+            </div>
         </section>
 
         <section class="features">
@@ -624,79 +674,97 @@
                 <a href="https://t.me/DavilkusGames" data-i18n="social_tg_dev" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[700ms]" target="_blank" rel="noopener noreferrer">Dev Telegram</a>
             </div>
         </section>
+
+        <section class="coming-soon">
+            <div class="auto-scale-wrapper align-center">
+                <div class="auto-scale-scaler coming-soon-text-wrapper" style="transform-origin: center center;">
+                    <span class="faded text-item scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out hover:scale-110 hover:text-[#ff5252] cursor-default" aria-hidden="true">
+                        <span data-i18n="footer_coming_soon">Coming Soon</span> 2026
+                    </span>
+                    <span class="highlight text-item scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[200ms] hover:scale-110 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)] cursor-default">
+                        <span data-i18n="footer_coming_soon">Coming Soon</span> 2026
+                    </span>
+                    <span class="faded text-item scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[400ms] hover:scale-110 hover:text-[#ff5252] cursor-default" aria-hidden="true">
+                        <span data-i18n="footer_coming_soon">Coming Soon</span> 2026
+                    </span>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer" role="contentinfo">
-        <div class="footer-text-wrapper">
-            <span data-i18n="footer_coming_soon" class="faded scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out hover:scale-110 hover:text-[#ff5252] cursor-default" aria-hidden="true">Coming Soon</span>
-            <span data-i18n="footer_coming_soon" class="highlight scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[200ms] hover:scale-110 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)] cursor-default">Coming Soon</span>
-            <span data-i18n="footer_coming_soon" class="faded scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[400ms] hover:scale-110 hover:text-[#ff5252] cursor-default" aria-hidden="true">Coming Soon</span>
+        <div class="lang-switcher">
+            <select id="lang-select" aria-label="Select Language">
+                <optgroup label="Popular">
+                    <option value="ru">Русский</option>
+                    <option value="en">English</option>
+                    <option value="es-419">Español (Latam)</option>
+                    <option value="pt-br">Português (Brasil)</option>
+                    <option value="zh-cn">简体中文</option>
+                    <option value="ko">한국어</option>
+                    <option value="tr">Türkçe</option>
+                    <option value="vi">Tiếng Việt</option>
+                </optgroup>
+                <optgroup label="Europe">
+                    <option value="fr">Français</option>
+                    <option value="de">Deutsch</option>
+                    <option value="es-es">Español (España)</option>
+                    <option value="it">Italiano</option>
+                    <option value="pt-pt">Português (Portugal)</option>
+                    <option value="pl">Polski</option>
+                    <option value="nl">Nederlands</option>
+                    <option value="cs">Čeština</option>
+                    <option value="sk">Slovenčina</option>
+                    <option value="hu">Magyar</option>
+                    <option value="ro">Română</option>
+                    <option value="bg">Български</option>
+                    <option value="el">Ελληνικά</option>
+                    <option value="sv">Svenska</option>
+                    <option value="da">Dansk</option>
+                    <option value="fi">Suomi</option>
+                    <option value="no">Norsk</option>
+                    <option value="ga">Gaeilge (Irish)</option>
+                    <option value="sr">Српски</option>
+                    <option value="hr">Hrvatski</option>
+                    <option value="sl">Slovenščina</option>
+                    <option value="et">Eesti</option>
+                    <option value="lv">Latviešu</option>
+                    <option value="lt">Lietuvių</option>
+                </optgroup>
+                <optgroup label="Asia & Oceania">
+                    <option value="zh-tw">繁體中文</option>
+                    <option value="th">ไทย</option>
+                    <option value="id">Bahasa Indonesia</option>
+                    <option value="ms">Bahasa Melayu</option>
+                    <option value="tl">Filipino</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="bn">বাংলা</option>
+                    <option value="ta">தமிழ்</option>
+                    <option value="te">తెలుగు</option>
+                    <option value="kn">ಕನ್ನಡ</option>
+                    <option value="ml">മലയാളം</option>
+                    <option value="mr">मराठी</option>
+                    <option value="pa">ਪੰਜਾਬੀ</option>
+                    <option value="gu">ગુજરાતી</option>
+                </optgroup>
+                <optgroup label="Middle East">
+                    <option value="ar">العربية</option>
+                    <option value="he">עברית</option>
+                    <option value="fa">فارسی</option>
+                    <option value="ur">اردو</option>
+                </optgroup>
+            </select>
         </div>
-
-        <select id="lang-select" aria-label="Select Language">
-            <optgroup label="Popular">
-                <option value="ru">Русский</option>
-                <option value="en">English</option>
-                <option value="es-419">Español (Latam)</option>
-                <option value="pt-br">Português (Brasil)</option>
-                <option value="zh-cn">简体中文</option>
-                <option value="ko">한국어</option>
-                <option value="tr">Türkçe</option>
-                <option value="vi">Tiếng Việt</option>
-            </optgroup>
-            <optgroup label="Europe">
-                <option value="fr">Français</option>
-                <option value="de">Deutsch</option>
-                <option value="es-es">Español (España)</option>
-                <option value="it">Italiano</option>
-                <option value="pt-pt">Português (Portugal)</option>
-                <option value="pl">Polski</option>
-                <option value="nl">Nederlands</option>
-                <option value="cs">Čeština</option>
-                <option value="sk">Slovenčina</option>
-                <option value="hu">Magyar</option>
-                <option value="ro">Română</option>
-                <option value="bg">Български</option>
-                <option value="el">Ελληνικά</option>
-                <option value="sv">Svenska</option>
-                <option value="da">Dansk</option>
-                <option value="fi">Suomi</option>
-                <option value="no">Norsk</option>
-                <option value="ga">Gaeilge (Irish)</option>
-                <option value="sr">Српски</option>
-                <option value="hr">Hrvatski</option>
-                <option value="sl">Slovenščina</option>
-                <option value="et">Eesti</option>
-                <option value="lv">Latviešu</option>
-                <option value="lt">Lietuvių</option>
-            </optgroup>
-            <optgroup label="Asia & Oceania">
-                <option value="zh-tw">繁體中文</option>
-                <option value="th">ไทย</option>
-                <option value="id">Bahasa Indonesia</option>
-                <option value="ms">Bahasa Melayu</option>
-                <option value="tl">Filipino</option>
-                <option value="hi">हिन्दी</option>
-                <option value="bn">বাংলা</option>
-                <option value="ta">தமிழ்</option>
-                <option value="te">తెలుగు</option>
-                <option value="kn">ಕನ್ನಡ</option>
-                <option value="ml">മലയാളം</option>
-                <option value="mr">मराठी</option>
-                <option value="pa">ਪੰਜਾਬੀ</option>
-                <option value="gu">ગુજરાતી</option>
-            </optgroup>
-            <optgroup label="Middle East">
-                <option value="ar">العربية</option>
-                <option value="he">עברית</option>
-                <option value="fa">فارسی</option>
-                <option value="ur">اردو</option>
-            </optgroup>
-        </select>
+        <div class="footer-copyright">
+            &copy; <span id="current-year"></span> <a href="https://davilkusgames.com" target="_blank" rel="noopener noreferrer">Davilkus Games</a>, All Rights Reserved.
+        </div>
     </footer>
 
     <!-- i18n & Core Logic -->
     <script>
+        // Dynamic copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
         const supportedLangs = [
             "en", "ru", "es-419", "pt-br", "id", "th", "tr", "vi", "zh-cn", "zh-tw", "ja", "ko",
             "de", "fr", "it", "es-es", "pl", "nl", "ar", "hi", "pt-pt", "cs", "sk", "hu", "ro", "bg",
@@ -771,6 +839,10 @@
                     el.innerHTML = text;
                 }
             });
+
+            requestAnimationFrame(() => {
+                applyAutoScale();
+            });
         }
 
         async function initI18n() {
@@ -778,16 +850,40 @@
             const select = document.getElementById('lang-select');
 
             if (lang === 'uk' && !select.querySelector('option[value="uk"]')) {
-                const ukOption = document.createElement('option');
-                ukOption.value = 'uk';
-                ukOption.textContent = 'Українська';
-                select.append(ukOption);
+                const europeGroup = Array.from(select.querySelectorAll('optgroup')).find(g => g.label === 'Europe');
+                if (europeGroup) {
+                    const ukOption = document.createElement('option');
+                    ukOption.value = 'uk';
+                    ukOption.textContent = 'Українська';
+                    europeGroup.appendChild(ukOption);
+                }
             }
 
             select.value = lang;
             const data = await fetchTranslation(lang);
             applyTranslations(data, lang);
         }
+
+        // --- Auto-Scaling Engine for Extra-Long Localized Text ---
+        function applyAutoScale() {
+            const wrappers = document.querySelectorAll('.auto-scale-wrapper');
+            wrappers.forEach(wrapper => {
+                const scaler = wrapper.querySelector('.auto-scale-scaler');
+                if (!scaler) return;
+
+                scaler.style.transform = 'scale(1)';
+
+                const wrapWidth = wrapper.clientWidth;
+                const contentWidth = scaler.scrollWidth;
+
+                if (contentWidth > wrapWidth && wrapWidth > 0) {
+                    const scale = (wrapWidth / contentWidth) * 0.95;
+                    scaler.style.transform = `scale(${scale})`;
+                }
+            });
+        }
+
+        window.addEventListener('resize', applyAutoScale);
 
         // Init Core Loading Sequence
         document.addEventListener("DOMContentLoaded", () => {
@@ -800,20 +896,23 @@
                     document.body.classList.remove('loading');
                     document.body.classList.add('loaded');
                     initScrollAnimations();
+                    applyAutoScale(); 
                 }, 600);
             });
 
             // Language Switcher Logic
             document.getElementById('lang-select').addEventListener('change', async (e) => {
                 const newLang = e.target.value;
-                localStorage.setItem('pref_lang', newLang);
-
-                const newUrl = new URL(window.location);
-                newUrl.searchParams.set('lang', newLang);
-                window.history.pushState({}, '', newUrl);
 
                 document.body.classList.remove('loaded');
                 document.body.classList.add('loading');
+
+                await new Promise(resolve => setTimeout(resolve, 800));
+
+                localStorage.setItem('pref_lang', newLang);
+                const newUrl = new URL(window.location);
+                newUrl.searchParams.set('lang', newLang);
+                window.history.pushState({}, '', newUrl);
 
                 const data = await fetchTranslation(newLang);
                 applyTranslations(data, newLang);
@@ -821,7 +920,7 @@
                 setTimeout(() => {
                     document.body.classList.remove('loading');
                     document.body.classList.add('loaded');
-                }, 600);
+                }, 100);
             });
 
             // --- Scroll & Parallax Animations ---
