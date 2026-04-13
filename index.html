@@ -24,17 +24,18 @@
     <link rel="manifest" href="/assets/meta/site.webmanifest">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://the-backrooms.online/">
+    <link rel="canonical" href="https://backroomsonline.com/">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="The Backrooms: Online">
     <meta property="og:title" content="The Backrooms: Online | Co-op Survival Horror">
     <meta property="og:description" content="Immersive multiplayer exploration of the Backrooms. Can you escape with your friends?">
-    <meta property="og:url" content="https://the-backrooms.online/">
-    <meta property="og:image" content="https://the-backrooms.online/assets/images/social-banner.webp">
+    <meta property="og:url" content="https://backroomsonline.com/">
+    <meta property="og:image" content="https://backroomsonline.com/assets/images/social-banner.webp">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="The Backrooms: Online Game Banner">
     <meta property="og:locale" content="en_US">
 
     <!-- Twitter Card -->
@@ -42,15 +43,44 @@
     <meta name="twitter:site" content="@DavilkusGames">
     <meta name="twitter:title" content="The Backrooms: Online">
     <meta name="twitter:description" content="Escape the Backrooms with friends! A liminal multiplayer survival horror game.">
-    <meta name="twitter:image" content="https://the-backrooms.online/assets/images/social-banner.webp">
+    <meta name="twitter:image" content="https://backroomsonline.com/assets/images/social-banner.webp">
+    <meta name="twitter:image:alt" content="The Backrooms: Online Game Banner">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Annie+Use+Your+Telescope&family=JetBrains+Mono:wght@500&family=Noto+Sans:wght@500&display=swap" rel="stylesheet">
 
+    <!-- Counter.dev Privacy-Friendly Analytics -->
+    <script src="https://cdn.counter.dev/script.js" data-id="cc931e21-a972-4ffe-aaf1-52b0f23da9d3" data-utcoffset="3"></script>
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- JSON-LD Structured Data for Search Engines -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "VideoGame",
+            "name": "The Backrooms: Online",
+            "url": "https://backroomsonline.com",
+            "image": "https://backroomsonline.com/assets/images/social-banner.webp",
+            "description": "Multiplayer survival horror game based on the Backrooms fandom.",
+            "genre": ["Horror", "Survival", "Co-op", "Multiplayer"],
+            "playMode": "MultiPlayer",
+            "publisher": {
+                "@type": "Organization",
+                "name": "Davilkus Games",
+                "url": "https://davilkusgames.com"
+            },
+            "author": {
+                "@type": "Organization",
+                "name": "Davilkus Games"
+            },
+            "gamePlatform": ["PC", "Windows"],
+            "applicationCategory": "Game"
+        }
+    </script>
 
     <style>
         @font-face {
@@ -97,7 +127,6 @@
             user-select: none;
         }
 
-            /* Loading Screen */
             body.loading {
                 overflow: hidden;
             }
@@ -154,7 +183,6 @@
         }
 
         .hero {
-            /* Added CSS variables for performant JS scaling & parallax */
             --bg-scale: 1;
             --bg-y: 0px;
             min-height: 100vh;
@@ -181,7 +209,6 @@
                 -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4) 25%, rgba(0, 0, 0, 0) 100%);
                 mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.4) 25%, rgba(0, 0, 0, 0) 100%);
                 z-index: 0;
-                /* Apply dynamic transforms passed from Javascript */
                 transform: scale(var(--bg-scale)) translateY(var(--bg-y));
                 will-change: transform;
             }
@@ -444,6 +471,7 @@
             .socials-grid {
                 gap: 0.75rem;
             }
+
             .social-btn {
                 padding: 0.75rem 1rem;
             }
@@ -453,162 +481,150 @@
 
 <body class="loading">
 
-    <!-- Loading Screen (Hides text until fonts load) -->
-    <div id="loader">
-        <div class="spinner"></div>
+    <!-- Loading Screen -->
+    <div id="loader" role="alert" aria-live="assertive">
+        <div class="spinner" aria-hidden="true"></div>
         <span class="loader-text">NOCLIPPING</span>
     </div>
 
-    <section class="hero">
+    <header class="hero" role="banner">
         <h1 class="scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[300ms] hover:scale-105 hover:drop-shadow-[0_0_20px_rgba(64,48,11,0.4)] cursor-default">
             The&nbsp;Backrooms<br>Online
         </h1>
         <p class="scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[500ms] hover:scale-105 hover:text-black cursor-default">
             Escape the Backrooms with friends!<br>The ultimate co-op multiplayer horror.
         </p>
-    </section>
+    </header>
 
-    <section class="about">
-        <!-- Added Tailwind "group" to image container to trigger hover scale on inner image -->
-        <div class="about-image group scroll-anim opacity-0 -translate-x-12 transition-all duration-[1200ms] ease-out">
-            <img src="./assets/images/level5_pre-alpha.webp" alt="Pre-Alpha Level 5 Design" loading="lazy" class="transition-transform duration-[2s] ease-out group-hover:scale-[1.15]">
-            <span class="image-label group-hover:text-[#fdcd96] transition-colors duration-500">Pre-Alpha Level 5 Design</span>
-        </div>
+    <main>
+        <section class="about">
+            <div class="about-image group scroll-anim opacity-0 -translate-x-12 transition-all duration-[1200ms] ease-out">
+                <img src="./assets/images/level5_pre-alpha.webp" alt="Pre-Alpha Level 5 Design featuring classic Backrooms hotel aesthetics" loading="lazy" class="transition-transform duration-[2s] ease-out group-hover:scale-[1.15]">
+                <span class="image-label group-hover:text-[#fdcd96] transition-colors duration-500">Pre-Alpha Level 5 Design</span>
+            </div>
 
-        <div class="about-text">
-            <p class="scroll-anim opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-[100ms] hover:text-white">
-                Multiplayer survival horror game developed by a small, but passionate team called Davilkus Games, based on the Backrooms fandom.
-            </p>
-            <p class="scroll-anim opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-[300ms] hover:text-white">
-                The game is an immersive exploration of multiple Backrooms levels with friends or via matchmaking. The
-                project aims to create a deeply atmospheric and mechanically rich experience, bringing the unsettling
-                lore of this specific Backrooms level to life.
-            </p>
-        </div>
-    </section>
+            <div class="about-text">
+                <p class="scroll-anim opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-[100ms] hover:text-white">
+                    Multiplayer survival horror game developed by a small, but passionate team called Davilkus Games, based on the Backrooms fandom.
+                </p>
+                <p class="scroll-anim opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-[300ms] hover:text-white">
+                    The game is an immersive exploration of multiple Backrooms levels with friends or via matchmaking. The
+                    project aims to create a deeply atmospheric and mechanically rich experience, bringing the unsettling
+                    lore of this specific Backrooms level to life.
+                </p>
+            </div>
+        </section>
 
-    <section class="big-text">
-        <h2 class="scroll-anim opacity-0 scale-90 transition-all duration-[1500ms] ease-out hover:scale-105 hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-default">
-            MULTIPLAYER<br>LIMINAL<br>HORROR
-        </h2>
-    </section>
+        <section class="big-text">
+            <h2 class="scroll-anim opacity-0 scale-90 transition-all duration-[1500ms] ease-out hover:scale-105 hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-default">
+                MULTIPLAYER<br>LIMINAL<br>HORROR
+            </h2>
+        </section>
 
-    <section class="features">
-        <div class="features-image group scroll-anim opacity-0 translate-x-12 transition-all duration-[1200ms] ease-out">
-            <img src="./assets/images/level37_pre-alpha.webp" alt="Pre-Alpha Level 37 Design" loading="lazy" class="transition-transform duration-[2s] ease-out group-hover:scale-[1.15]">
-            <span class="image-label group-hover:text-[#77AF88] transition-colors duration-500">Pre-Alpha Level 37 Design</span>
-        </div>
+        <section class="features">
+            <div class="features-image group scroll-anim opacity-0 translate-x-12 transition-all duration-[1200ms] ease-out">
+                <img src="./assets/images/level37_pre-alpha.webp" alt="Pre-Alpha Level 37 Design showcasing eerie liminal pools" loading="lazy" class="transition-transform duration-[2s] ease-out group-hover:scale-[1.15]">
+                <span class="image-label group-hover:text-[#77AF88] transition-colors duration-500">Pre-Alpha Level 37 Design</span>
+            </div>
 
-        <div class="features-text">
-            <p class="scroll-anim opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-[100ms] hover:text-white">
-                Experience a multitude of levels and diverse gameplay mechanics.
-            </p>
-            <p class="scroll-anim opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-[300ms] hover:text-white">
-                Choose from different game modes, host your own custom player servers, and enjoy full mod support for endless community content.
-            </p>
-        </div>
-    </section>
+            <div class="features-text">
+                <p class="scroll-anim opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-[100ms] hover:text-white">
+                    Experience a multitude of levels and diverse gameplay mechanics.
+                </p>
+                <p class="scroll-anim opacity-0 translate-y-8 transition-all duration-[1000ms] ease-out delay-[300ms] hover:text-white">
+                    Choose from different game modes, host your own custom player servers, and enjoy full mod support for endless community content.
+                </p>
+            </div>
+        </section>
 
-    <!-- Socials & Links Section (With staggered entrance animations) -->
-    <section class="socials">
-        <div class="socials-grid">
-            <a href="https://davilkusgames.com" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[100ms]" target="_blank" rel="noopener noreferrer">Official Website</a>
-            <a href="https://discord.gg/w3zRrUgxMw" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[200ms]" target="_blank" rel="noopener noreferrer">Discord Server</a>
-            <a href="https://t.me/backrooms_online" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[300ms]" target="_blank" rel="noopener noreferrer">Game Telegram</a>
-            <a href="https://www.youtube.com/@davilkusgames" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[400ms]" target="_blank" rel="noopener noreferrer">YouTube</a>
-            <a href="https://x.com/DavilkusGames" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[500ms]" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
-            <a href="https://bsky.app/profile/davilkusgames.com" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[600ms]" target="_blank" rel="noopener noreferrer">Bluesky</a>
-            <a href="https://t.me/DavilkusGames" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[700ms]" target="_blank" rel="noopener noreferrer">Dev Telegram</a>
-        </div>
-    </section>
+        <section class="socials">
+            <div class="socials-grid">
+                <a href="https://davilkusgames.com" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[100ms]" target="_blank" rel="noopener noreferrer">Official Website</a>
+                <a href="https://discord.gg/w3zRrUgxMw" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[200ms]" target="_blank" rel="noopener noreferrer">Discord Server</a>
+                <a href="https://t.me/backrooms_online" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[300ms]" target="_blank" rel="noopener noreferrer">Game Telegram</a>
+                <a href="https://www.youtube.com/@davilkusgames" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[400ms]" target="_blank" rel="noopener noreferrer">YouTube</a>
+                <a href="https://x.com/DavilkusGames" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[500ms]" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
+                <a href="https://bsky.app/profile/davilkusgames.com" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[600ms]" target="_blank" rel="noopener noreferrer">Bluesky</a>
+                <a href="https://t.me/DavilkusGames" class="social-btn scroll-anim opacity-0 translate-y-6 transition-all duration-700 ease-out delay-[700ms]" target="_blank" rel="noopener noreferrer">Dev Telegram</a>
+            </div>
+        </section>
+    </main>
 
-    <section class="footer">
-        <span class="faded scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out hover:scale-110 hover:text-[#ff5252] cursor-default">Coming Soon</span>
+    <footer class="footer" role="contentinfo">
+        <span class="faded scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out hover:scale-110 hover:text-[#ff5252] cursor-default" aria-hidden="true">Coming Soon</span>
         <span class="highlight scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[200ms] hover:scale-110 hover:drop-shadow-[0_0_20px_rgba(255,0,0,0.6)] cursor-default">Coming Soon</span>
-        <span class="faded scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[400ms] hover:scale-110 hover:text-[#ff5252] cursor-default">Coming Soon</span>
-    </section>
+        <span class="faded scroll-anim opacity-0 translate-y-12 transition-all duration-[1200ms] ease-out delay-[400ms] hover:scale-110 hover:text-[#ff5252] cursor-default" aria-hidden="true">Coming Soon</span>
+    </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-        // 1. Loader & Animation Trigger
-        document.fonts.ready.then(() => {
-        setTimeout(() => {
-        document.body.classList.remove('loading');
-        document.body.classList.add('loaded');
+            document.fonts.ready.then(() => {
+                setTimeout(() => {
+                    document.body.classList.remove('loading');
+                    document.body.classList.add('loaded');
 
-        // Init Scroll Animations after loader drops so the top elements animate properly!
-        initScrollAnimations();
-        }, 600);
-        });
+                    initScrollAnimations();
+                }, 600);
+            });
 
-        // 2. Smooth Background Parallax & Scaling on Scroll (Using requestAnimationFrame for silky performance)
-        let scrollY = 0;
-        let currentScale = 1;
-        let currentY = 0;
-        const heroSection = document.querySelector('.hero');
+            let scrollY = 0;
+            let currentScale = 1;
+            let currentY = 0;
+            const heroSection = document.querySelector('.hero');
 
-        window.addEventListener('scroll', () => {
-        scrollY = window.scrollY;
-        });
+            window.addEventListener('scroll', () => {
+                scrollY = window.scrollY;
+            });
 
-        function animateHero() {
-        // Only compute if we are near the top hero section
-        if (scrollY < window.innerHeight * 1.5) {
-        // Target values based on scroll depth
-        const targetScale = 1 + (scrollY * 0.0003);
-        const targetY = scrollY * 0.15; // Parallax speed
+            function animateHero() {
+                if (scrollY < window.innerHeight * 1.5) {
+                    const targetScale = 1 + (scrollY * 0.0003);
+                    const targetY = scrollY * 0.15; 
 
-        // Lerp (Linear Interpolation) to smooth the effect out
-        currentScale += (targetScale - currentScale) * 0.1;
-        currentY += (targetY - currentY) * 0.1;
+                    currentScale += (targetScale - currentScale) * 0.1;
+                    currentY += (targetY - currentY) * 0.1;
 
-        // Cap currentY so that the downward translation never exceeds the scroll distance
-        currentY = Math.min(currentY, scrollY);
+                    currentY = Math.min(currentY, scrollY);
 
-        // Apply to CSS variables so the pseudo-element can consume them
-        heroSection.style.setProperty('--bg-scale', currentScale.toFixed(4));
-        heroSection.style.setProperty('--bg-y', `${currentY.toFixed(2)}px`);
-        }
-        requestAnimationFrame(animateHero);
-        }
-        animateHero();
+                    heroSection.style.setProperty('--bg-scale', currentScale.toFixed(4));
+                    heroSection.style.setProperty('--bg-y', `${currentY.toFixed(2)}px`);
+                }
+                requestAnimationFrame(animateHero);
+            }
+            animateHero();
 
-        // 3. Scroll Into View Animations (Intersection Observer removing Tailwind hidden classes)
-        function initScrollAnimations() {
-        const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.15 // Triggers when 15% of the element is visible
-        };
+            function initScrollAnimations() {
+                const observerOptions = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.15
+                };
 
-        const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-        if (entry.isIntersecting) {
-        // Strips away the hiding utilities injected in the HTML classes
-        entry.target.classList.remove('opacity-0', 'translate-y-12', 'translate-y-8', 'translate-y-6', '-translate-x-12', 'translate-x-12', 'scale-90');
-        entry.target.classList.add('opacity-100', 'translate-y-0', 'translate-x-0', 'scale-100');
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.remove('opacity-0', 'translate-y-12', 'translate-y-8', 'translate-y-6', '-translate-x-12', 'translate-x-12', 'scale-90');
+                            entry.target.classList.add('opacity-100', 'translate-y-0', 'translate-x-0', 'scale-100');
 
-        // Stop observing once animated in
-        observer.unobserve(entry.target);
+                            observer.unobserve(entry.target);
 
-        // Remove delay and transition utilities after animation completes to fix hover effects
-        setTimeout(() => {
-        const classesToRemove = Array.from(entry.target.classList).filter(c => c.startsWith('delay-'));
-        if (entry.target.classList.contains('social-btn')) {
-        classesToRemove.push('transition-all', 'duration-700', 'ease-out');
-        }
-        if (classesToRemove.length > 0) {
-        entry.target.classList.remove(...classesToRemove);
-        }
-        }, 2500);
-        }
-        });
-        }, observerOptions);
+                            setTimeout(() => {
+                                const classesToRemove = Array.from(entry.target.classList).filter(c => c.startsWith('delay-'));
+                                if (entry.target.classList.contains('social-btn')) {
+                                    classesToRemove.push('transition-all', 'duration-700', 'ease-out');
+                                }
+                                if (classesToRemove.length > 0) {
+                                    entry.target.classList.remove(...classesToRemove);
+                                }
+                            }, 2500);
+                        }
+                    });
+                }, observerOptions);
 
-        document.querySelectorAll('.scroll-anim').forEach(el => {
-        observer.observe(el);
-        });
-        }
+                document.querySelectorAll('.scroll-anim').forEach(el => {
+                    observer.observe(el);
+                });
+            }
         });
     </script>
 </body>

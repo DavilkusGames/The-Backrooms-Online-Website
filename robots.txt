@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://the-backrooms.online/sitemap.xml
+Sitemap: https://backroomsonline.com/sitemap.xml
