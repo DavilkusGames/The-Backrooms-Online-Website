@@ -156,6 +156,10 @@
             overflow-x: hidden;
         }
 
+        html[lang="ru"] .big-text h2 {
+            line-height: 1.05; 
+        }
+
         /* Multi-language system font fallback stack */
         body {
             font-family: 'Noto Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Kufi Arabic", "Microsoft YaHei", "Hiragino Sans", "Meiryo", "Sarabun", "Loma", "Mangal", sans-serif;
@@ -340,12 +344,18 @@
 
         .auto-scale-wrapper {
             width: 100%;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .auto-scale-wrapper.align-center {
             display: flex;
             justify-content: center;
+            width: 100%;
+        }
+
+        .auto-scale-wrapper.align-right {
+            display: flex;
+            justify-content: flex-end;
             width: 100%;
         }
 
@@ -659,7 +669,7 @@
         <section class="big-text">
             <div class="auto-scale-wrapper align-right js-needs-scaling">
                 <div class="auto-scale-scaler" style="transform-origin: right center;">
-                    <h2 data-i18n="big_text" class="scroll-anim opacity-0 scale-90 transition-all duration-[1500ms] ease-out hover:scale-105 hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-default">
+                    <h2 data-i18n="big_text" class="origin-right scroll-anim opacity-0 scale-90 transition-all duration-[1500ms] ease-out hover:scale-105 hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.25)] cursor-default">
                         MULTIPLAYER<br>LIMINAL<br>HORROR
                     </h2>
                 </div>
@@ -896,14 +906,16 @@
                 const scaler = wrapper.querySelector('.auto-scale-scaler');
                 if (!scaler) return;
 
-                scaler.style.transform = 'scale(1)';
+                scaler.style.transform = 'none';
+                void scaler.offsetWidth; // force reflow
 
-                const wrapWidth = wrapper.clientWidth;
-                const contentWidth = scaler.scrollWidth;
+                const section = wrapper.closest('section') || wrapper.parentElement;
+                const cs = getComputedStyle(section);
+                const availableWidth = section.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+                const contentWidth = scaler.getBoundingClientRect().width;
 
-                if (contentWidth > wrapWidth && wrapWidth > 0) {
-                    const scale = (wrapWidth / contentWidth) * 0.95;
-                    scaler.style.transform = `scale(${scale})`;
+                if (contentWidth > availableWidth && availableWidth > 0) {
+                    scaler.style.transform = `scale(${(availableWidth / contentWidth) * 0.97})`;
                 }
             });
         }
